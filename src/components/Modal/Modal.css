@@ -1,0 +1,11 @@
+.successBorder {
+  border: 2px solid #69ca62;
+  box-shadow: 0 0 10px #69ca62, 0 0 20px #69ca62, 0 0 30px #69ca62,
+    0 0 40px #69ca62;
+}
+
+.errorBorder {
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000,
+    0 0 40px #ff0000;
+}
