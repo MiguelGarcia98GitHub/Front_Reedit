@@ -30,6 +30,9 @@ const HeaderMenuNotLogged = () => {
                     className={`${
                       active ? "bg-orange-400 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={() => {
+                      navigate("/login");
+                    }}
                   >
                     {active ? (
                       <SignInIcon className="mr-2 h-7 w-7" aria-hidden="true" />

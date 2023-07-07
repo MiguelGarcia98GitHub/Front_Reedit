@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProps> = ({
     if (isModalOpen) {
       timer = setTimeout(() => {
         setIsModalOpen(false);
-      }, 3000);
+      }, 2200);
     }
     return () => {
       if (timer) {
