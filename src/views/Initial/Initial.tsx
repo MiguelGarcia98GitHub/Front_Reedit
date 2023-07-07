@@ -1,10 +1,14 @@
-import { Header } from "../../components";
+import { Header, RandomPostsList } from "../../components";
 import { useStore } from "../../store/zustandStore";
 
 const Initial = () => {
   const { logIn } = useStore();
 
-  return <div></div>;
+  return (
+    <div>
+      <RandomPostsList />
+    </div>
+  );
 };
 
 export default Initial;

@@ -21,6 +21,8 @@ interface Store {
     email: string,
     password: string
   ) => Promise<DecodedJWTToken> | Promise<ErrorResponse>;
+  posts: any;
+  getAllPosts: () => Promise<any>;
 }
 
 export const useStore = create<Store>()(
@@ -62,6 +64,22 @@ export const useStore = create<Store>()(
         if (loginData.statusCode !== 200) {
           return Promise.resolve(loginData);
         }
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    posts: null,
+    getAllPosts: async () => {
+      try {
+        const response = await fetch(`${baseBackendURL}/posts`);
+
+        const postsData = await response.json();
+
+        set({
+          posts: postsData,
+        });
+
+        return Promise.resolve(postsData);
       } catch (error) {
         return Promise.reject(error);
       }
