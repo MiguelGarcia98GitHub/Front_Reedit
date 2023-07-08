@@ -1,9 +1,11 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useStore } from "../../store/zustandStore";
+import { useNavigate } from "react-router-dom";
 
 const HeaderMenuLogged = () => {
   const { logged } = useStore();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -51,6 +53,9 @@ const HeaderMenuLogged = () => {
                     className={`${
                       active ? "bg-orange-400 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={() => {
+                      navigate("/create-post");
+                    }}
                   >
                     {active ? (
                       <PlusIcon className="mr-2 h-7 w-7" aria-hidden="true" />

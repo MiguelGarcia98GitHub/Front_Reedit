@@ -4,6 +4,7 @@ import HeaderMenuLogged from "./HeaderMenuLogged/HeaderMenuLogged";
 import Modal from "./Modal/Modal";
 import Spinner from "./Spinner/Spinner";
 import RandomPostsList from "./RandomPostsList/RandomPostsList";
+import CommunityTopBar from "./CommunityTopBar/CommunityTopBar";
 
 export {
   Header,
@@ -12,4 +13,5 @@ export {
   Modal,
   Spinner,
   RandomPostsList,
+  CommunityTopBar,
 };

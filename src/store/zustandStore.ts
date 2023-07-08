@@ -61,7 +61,7 @@ export const useStore = create<Store>()(
           return Promise.resolve(decodedJWTToken);
         }
 
-        if (loginData.statusCode !== 200) {
+        if (response.status !== 200) {
           return Promise.resolve(loginData);
         }
       } catch (error) {

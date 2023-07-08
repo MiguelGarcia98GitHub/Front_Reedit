@@ -1,4 +1,4 @@
-import { Header, RandomPostsList } from "../../components";
+import { RandomPostsList } from "../../components";
 import { useStore } from "../../store/zustandStore";
 
 const Initial = () => {

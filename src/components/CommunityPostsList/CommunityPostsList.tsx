@@ -1,23 +1,23 @@
 import { useNavigate } from "react-router-dom";
-import { useStore } from "../../store/zustandStore";
-import { useEffect } from "react";
 import { Post } from "../../interfaces/interfaces";
 
-const RandomPostsList = () => {
-  const { getAllPosts, posts } = useStore();
+interface Props {
+  posts: Post[];
+}
+
+const CommunityPostsList: React.FC<Props> = ({ posts }) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getAllPosts();
-  }, []);
+  console.log("posts received:");
+  console.log(posts);
 
   return (
     <div className="pl-5 pr-5 py-5">
       {posts &&
-        posts.map((post: Post) => (
+        posts.map((post) => (
           <div
             key={post.id}
-            className="border border-gray-300 shadow-md rounded-md p-4 mb-4"
+            className="border border-gray-300 shadow-md rounded-md p-4 mb-4 cursor-pointer"
             onClick={() => {
               navigate(`/community/${post.community.name}/post/${post.id}`);
             }}
@@ -29,8 +29,7 @@ const RandomPostsList = () => {
                 className="w-12 h-12 rounded-full mr-2"
               />
               <div className="text-gray-700">
-                {" "}
-                posted on r/{post.community.name}
+                posted by {post.creator.username} in r/{post.community.name}
               </div>
             </div>
             <div className="font-bold text-lg mb-2">{post.title}</div>
@@ -41,4 +40,4 @@ const RandomPostsList = () => {
   );
 };
 
-export default RandomPostsList;
+export default CommunityPostsList;
