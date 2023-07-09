@@ -37,6 +37,9 @@ const HeaderMenuLogged = () => {
                     className={`${
                       active ? "bg-orange-400 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={() => {
+                      navigate("/explore-communities");
+                    }}
                   >
                     {active ? (
                       <SignInIcon className="mr-2 h-7 w-7" aria-hidden="true" />
@@ -52,7 +55,26 @@ const HeaderMenuLogged = () => {
                   <button
                     className={`${
                       active ? "bg-orange-400 text-white" : "text-gray-900"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer`}
+                    onClick={() => {
+                      navigate("/create-community");
+                    }}
+                  >
+                    {active ? (
+                      <PlusIcon className="mr-2 h-7 w-7" aria-hidden="true" />
+                    ) : (
+                      <PlusIcon className="mr-2 h-7 w-7" aria-hidden="true" />
+                    )}
+                    Create a Community
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? "bg-orange-400 text-white" : "text-gray-900"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer`}
                     onClick={() => {
                       navigate("/create-post");
                     }}
@@ -74,7 +96,7 @@ const HeaderMenuLogged = () => {
   );
 };
 
-function UserIcon(props: any) {
+function UserIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -93,7 +115,7 @@ function UserIcon(props: any) {
   );
 }
 
-function PlusIcon(props: any) {
+function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -111,7 +133,7 @@ function PlusIcon(props: any) {
   );
 }
 
-function SignInIcon(props: any) {
+function SignInIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

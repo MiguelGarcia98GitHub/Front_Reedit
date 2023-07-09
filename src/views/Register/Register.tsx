@@ -120,7 +120,7 @@ const Register = () => {
             <div>
               <button
                 type="button"
-                className="w-full px-8 py-3 font-semibold text-white rounded-md bg-orange-600 hover:bg-orange-700"
+                className="w-full px-8 py-3 font-semibold text-white rounded-md bg-orange-600 hover:bg-orange-700 cursor-pointer"
                 onClick={() => {
                   register(username, email, password)
                     .then(() => {})

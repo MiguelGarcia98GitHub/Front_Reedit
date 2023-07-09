@@ -67,7 +67,7 @@ const LogIn = () => {
             <div>
               <button
                 type="button"
-                className="h-12 w-full px-8 py-3 font-semibold text-white rounded-md bg-orange-600 hover:bg-orange-700"
+                className="h-12 w-full px-8 py-3 font-semibold text-white rounded-md bg-orange-600 hover:bg-orange-700 cursor-pointer"
                 onClick={() => {
                   setLoading(true);
                   logIn(email, password)

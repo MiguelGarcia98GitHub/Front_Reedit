@@ -16,7 +16,7 @@ const CommunityTopBar: React.FC<CommunityTopBarProps> = ({ community }) => {
 
   return (
     <div
-      className="flex items-center bg-gray-400 p-4 rounded-md"
+      className="flex items-center bg-orange-300 p-4 rounded-sm cursor-pointer"
       onClick={() => {
         navigate(`/community/${community.name}`);
       }}

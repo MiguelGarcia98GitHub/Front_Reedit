@@ -7,8 +7,11 @@ import {
   Post,
 } from "../../interfaces/interfaces";
 import CommunityPostsList from "../../components/CommunityPostsList/CommunityPostsList";
+import NotFound from "../NotFound/NotFound";
 
 const Community = () => {
+  const [empty404, setEmpty404] = useState<number>(1); // 1: Loading / 2: Correctly Loaded / 3: Empty
+
   const [communityNameData, setCommunityNameData] =
     useState<CommunityInterface | null>(null);
   const [communityPostsData, setCommunityPostsData] = useState<Post[] | null>(
@@ -24,10 +27,16 @@ const Community = () => {
 
       const communityNameFetchData = await response.json();
 
+      if (communityNameFetchData.statusCode) {
+        setEmpty404(3);
+        return;
+      }
+
+      setEmpty404(2);
+
       setCommunityNameData(communityNameFetchData);
-    } catch (error) {
-      // TODO
-    }
+      return communityNameFetchData;
+    } catch (error) {}
   }
 
   async function fetchCommunityPosts() {
@@ -47,15 +56,22 @@ const Community = () => {
   }
 
   useEffect(() => {
-    fetchCommunityData().then(() => {
-      fetchCommunityPosts();
-    });
+    fetchCommunityData().then((communityDataPossibleError) => {});
   }, []);
+
+  useEffect(() => {
+    fetchCommunityPosts();
+  }, [communityNameData]);
 
   return (
     <div>
-      {communityNameData && <CommunityTopBar community={communityNameData} />}
-      {communityPostsData && <CommunityPostsList posts={communityPostsData} />}
+      {empty404 === 2 && communityNameData && (
+        <CommunityTopBar community={communityNameData} />
+      )}
+      {empty404 === 2 && communityPostsData && (
+        <CommunityPostsList posts={communityPostsData} />
+      )}
+      {empty404 === 3 && <NotFound errorMessage="Community not found" />}
     </div>
   );
 };

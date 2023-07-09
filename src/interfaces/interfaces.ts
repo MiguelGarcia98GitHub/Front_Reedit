@@ -11,10 +11,22 @@ export interface Comment {
   user: User;
 }
 
+export interface CommentDTO {
+  content: string;
+  userId: number;
+  postId: number;
+}
+
 export interface Community {
   id: number;
   name: string;
   imageUrl: string;
+}
+
+export interface CommunityDTO {
+  name: string;
+  imageUrl: string;
+  creatorId: number;
 }
 
 export interface PostCreator {

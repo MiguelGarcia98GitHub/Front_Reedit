@@ -1,9 +1,16 @@
 import { Fragment, useEffect, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
-import { Community, Post, PostDTO } from "../../interfaces/interfaces";
+import { Community, PostDTO } from "../../interfaces/interfaces";
 import { useStore } from "../../store/zustandStore";
+import { Modal } from "../../components";
+import { delay } from "../../helpers/helpers";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState("");
+
   const [communities, setCommunities] = useState([
     {
       id: 1,
@@ -19,6 +26,7 @@ export default function CreatePost() {
   const [imageUrl, setImageUrl] = useState("");
 
   const { logged } = useStore();
+  const navigate = useNavigate();
 
   const filteredCommunities =
     query === ""
@@ -29,11 +37,6 @@ export default function CreatePost() {
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
-
-  const handlePostCreation = () => {
-    // Handle post creation logic here
-    // Use selectedCommunity, title, content, and imageUrl
-  };
 
   async function getAllCommunities() {
     const response = await fetch("http://localhost:3000/communities");
@@ -70,7 +73,12 @@ export default function CreatePost() {
       <h2 className="text-2xl font-semibold text-gray-700 text-center">
         Create a Post
       </h2>
-      <form onSubmit={handlePostCreation} className="mt-4">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        className="mt-4"
+      >
         <label className="block mt-3">
           <span className="text-gray-700">Community</span>
         </label>
@@ -105,7 +113,7 @@ export default function CreatePost() {
                   filteredCommunities.map((community) => (
                     <Combobox.Option
                       key={community.id}
-                      className={({ active }) =>
+                      className={({}) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4`
                       }
                       value={community}
@@ -169,7 +177,7 @@ export default function CreatePost() {
 
         <button
           type="submit"
-          className="w-full mt-6 py-2 px-4 text-center bg-orange-600 rounded-md text-white text-sm hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+          className="w-full mt-6 py-2 px-4 text-center bg-orange-600 rounded-md text-white text-sm hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 cursor-pointer"
           onClick={() => {
             createPost({
               title,
@@ -177,12 +185,30 @@ export default function CreatePost() {
               imageUrl,
               creatorId: logged.id,
               communityId: selectedCommunity.id,
-            });
+            })
+              .then(async (postData) => {
+                setModalTitle("Success");
+                setModalContent("Your post has been created!");
+                setIsModalOpen(true);
+                await delay(2200);
+                navigate(
+                  `/community/${postData.community.name}/post/${postData.id} `
+                );
+              })
+              .catch((error) => {});
           }}
         >
           Create Post
         </button>
       </form>
+      {
+        <Modal
+          title={`${modalTitle}`}
+          content={`${modalContent}`}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
+      }
     </div>
   );
 }

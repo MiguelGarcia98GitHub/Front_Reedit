@@ -3,6 +3,7 @@ import { devtools } from "zustand/middleware";
 import { baseBackendURL } from "../config/globals";
 import jwt_decode from "jwt-decode";
 import { delay } from "../helpers/helpers";
+import { Post } from "../interfaces/interfaces";
 
 interface DecodedJWTToken {
   id: number;
@@ -21,8 +22,8 @@ interface Store {
     email: string,
     password: string
   ) => Promise<DecodedJWTToken> | Promise<ErrorResponse>;
-  posts: any;
-  getAllPosts: () => Promise<any>;
+  posts: Post | null;
+  getAllPosts: () => Promise<Post[]>;
 }
 
 export const useStore = create<Store>()(
