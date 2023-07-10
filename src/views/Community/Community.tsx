@@ -56,7 +56,7 @@ const Community = () => {
   }
 
   useEffect(() => {
-    fetchCommunityData().then((communityDataPossibleError) => {});
+    fetchCommunityData().then(() => {});
   }, []);
 
   useEffect(() => {
