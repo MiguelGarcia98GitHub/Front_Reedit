@@ -140,7 +140,7 @@ const Post = () => {
                                   closeCommentButtonRef.current &&
                                   closeCommentButtonRef.current.click();
                               })
-                              .catch((error) => {
+                              .catch(() => {
                                 // TODO
                               });
                           }}

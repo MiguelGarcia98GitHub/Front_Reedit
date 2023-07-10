@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useState } from "react";
 import { useStore } from "../../store/zustandStore";
 import { Modal } from "../../components";
 import { delay } from "../../helpers/helpers";
@@ -88,7 +88,7 @@ export default function CreateCommunity() {
                 await delay(2200);
                 navigate(`/community/${communityData.name}`);
               })
-              .catch((error) => {});
+              .catch(() => {});
           }}
         >
           Create Community

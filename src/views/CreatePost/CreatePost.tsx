@@ -196,7 +196,7 @@ export default function CreatePost() {
                   `/community/${postData.community.name}/post/${postData.id} `
                 );
               })
-              .catch((error) => {});
+              .catch(() => {});
           }}
         >
           Create Post

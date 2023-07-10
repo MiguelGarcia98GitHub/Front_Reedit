@@ -1,7 +1,7 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { baseBackendURL } from "../../config/globals";
-import { CommunityTopBar, Modal } from "../../components";
+
+import { CommunityTopBar } from "../../components";
 import {
   Community as CommunityInterface,
   Post,
