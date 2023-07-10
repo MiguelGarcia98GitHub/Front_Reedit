@@ -43,7 +43,7 @@ const Community = () => {
   async function fetchCommunityPosts() {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/communityName/${communityName}`
+        `${baseBackendURL}/posts/communityName/${communityName}`
       );
 
       const communityPostsFetchData = await response.json();
@@ -57,7 +57,9 @@ const Community = () => {
   }
 
   useEffect(() => {
-    fetchCommunityData().then(() => {});
+    fetchCommunityData().then(() => {
+      fetchCommunityPosts();
+    });
   }, []);
 
   useEffect(() => {
