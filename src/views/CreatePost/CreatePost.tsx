@@ -5,6 +5,7 @@ import { Modal } from "../../components";
 import { delay } from "../../helpers/helpers";
 import { useNavigate } from "react-router-dom";
 import { baseBackendURL } from "../../config/globals";
+import { useStore } from "../../store/zustandStore";
 
 export default function CreatePost() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +26,7 @@ export default function CreatePost() {
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
+  const { logged } = useStore();
   const navigate = useNavigate();
 
   const filteredCommunities =
@@ -50,6 +52,7 @@ export default function CreatePost() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${logged!.access_token}`,
       },
 
       body: JSON.stringify(post),
