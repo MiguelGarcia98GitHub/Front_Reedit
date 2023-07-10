@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { useStore } from "../../store/zustandStore";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { DecodedJWT, loggedIn } from "../../interfaces/interfaces";
+import { DecodedJWT } from "../../interfaces/interfaces";
 
 const HeaderMenuLogged = () => {
   const { logged } = useStore();

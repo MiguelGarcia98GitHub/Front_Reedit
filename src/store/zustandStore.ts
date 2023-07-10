@@ -10,18 +10,13 @@ interface DecodedJWTToken {
   username: string;
 }
 
-interface ErrorResponse {
-  message: string;
-  statusCode: number;
-}
-
 interface Store {
   logged: null | loggedIn;
   logIn: (
     email: string,
     password: string
   ) => Promise<DecodedJWTToken> | Promise<BackendErrorResponse>;
-  posts: Post | null;
+  posts: Post[] | null;
   getAllPosts: () => Promise<Post[]>;
 }
 
@@ -88,8 +83,15 @@ export const useStore = create<Store>()(
     },
     posts: null,
     getAllPosts: async () => {
+      console.log("inside getAllPosts:");
+      console.log(baseBackendURL);
+      console.log("fetchURL:");
+      console.log(`${baseBackendURL}/posts`);
+
       try {
         const response = await fetch(`${baseBackendURL}/posts`);
+        console.log("response");
+        console.log(response);
 
         const postsData = await response.json();
 
@@ -99,6 +101,8 @@ export const useStore = create<Store>()(
 
         return Promise.resolve(postsData);
       } catch (error) {
+        console.log("error");
+        console.log(error);
         return Promise.reject(error);
       }
     },

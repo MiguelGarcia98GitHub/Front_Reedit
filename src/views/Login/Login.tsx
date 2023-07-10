@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Modal, Spinner } from "../../components";
 import { useStore } from "../../store/zustandStore";
 import { useNavigate } from "react-router-dom";
-import { delay } from "../../helpers/helpers";
 import { BackendErrorResponse, DecodedJWT } from "../../interfaces/interfaces";
 
 const LogIn = () => {
