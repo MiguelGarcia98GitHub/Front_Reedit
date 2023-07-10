@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { Community, PostDTO } from "../../interfaces/interfaces";
-import { useStore } from "../../store/zustandStore";
 import { Modal } from "../../components";
 import { delay } from "../../helpers/helpers";
 import { useNavigate } from "react-router-dom";
