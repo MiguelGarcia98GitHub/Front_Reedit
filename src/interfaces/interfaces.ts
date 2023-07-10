@@ -13,7 +13,6 @@ export interface Comment {
 
 export interface CommentDTO {
   content: string;
-  userId: number;
   postId: number;
 }
 
@@ -26,7 +25,6 @@ export interface Community {
 export interface CommunityDTO {
   name: string;
   imageUrl: string;
-  creatorId: number;
 }
 
 export interface PostCreator {
@@ -49,6 +47,19 @@ export interface PostDTO {
   title: string;
   description: string;
   imageUrl: string;
-  creatorId: number;
   communityId: number;
+}
+
+export interface DecodedJWT {
+  username: string;
+  email: string;
+}
+
+export interface BackendErrorResponse {
+  message: string;
+  statusCode: number;
+}
+
+export interface loggedIn {
+  access_token: string;
 }

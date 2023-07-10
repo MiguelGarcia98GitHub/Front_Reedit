@@ -1,9 +1,8 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { baseBackendURL } from "../config/globals";
-import jwt_decode from "jwt-decode";
 import { delay } from "../helpers/helpers";
-import { Post } from "../interfaces/interfaces";
+import { BackendErrorResponse, Post, loggedIn } from "../interfaces/interfaces";
 
 interface DecodedJWTToken {
   id: number;
@@ -17,19 +16,24 @@ interface ErrorResponse {
 }
 
 interface Store {
-  logged: any;
+  logged: null | loggedIn;
   logIn: (
     email: string,
     password: string
-  ) => Promise<DecodedJWTToken> | Promise<ErrorResponse>;
+  ) => Promise<DecodedJWTToken> | Promise<BackendErrorResponse>;
   posts: Post | null;
   getAllPosts: () => Promise<Post[]>;
 }
 
 export const useStore = create<Store>()(
   devtools((set) => ({
-    logged: false,
+    logged: null,
     logIn: async (email, password) => {
+      console.log("email:");
+      console.log(email);
+      console.log("password");
+      console.log(password);
+
       await delay(500);
       try {
         const response = await fetch(`${baseBackendURL}/users/login`, {
@@ -43,28 +47,41 @@ export const useStore = create<Store>()(
           }),
         });
 
+        console.log("response");
+        console.log(response);
+
         const loginData = await response.json();
 
         console.log("loginData from Zustand:");
         console.log(loginData);
 
-        if (loginData.access_token) {
-          const decodedJWTToken = jwt_decode(loginData.access_token) as any;
-          set({
-            logged: {
-              id: decodedJWTToken.id,
-              email: decodedJWTToken.email,
-              username: decodedJWTToken.username,
-            },
-          });
-
-          // some time to show spinner for better user experience
-          return Promise.resolve(decodedJWTToken);
+        if (loginData.message) {
+          return loginData;
         }
 
-        if (response.status !== 200) {
-          return Promise.resolve(loginData);
-        }
+        set({
+          logged: loginData,
+        });
+
+        return loginData;
+
+        // if (!loginData.access_token) {
+        //   return loginData;
+        // }
+
+        // if (loginData.access_token) {
+        //   set({
+        //     logged: loginData,
+        //   });
+
+        //   // some time to show spinner for better user experience
+        //   return Promise.resolve(loginData);
+        // }
+
+        // if (response.status !== 200) {
+        //   return Promise.resolve(loginData);
+        // }
+        // return Promise.resolve(loginData);
       } catch (error) {
         return Promise.reject(error);
       }

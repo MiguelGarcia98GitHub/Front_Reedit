@@ -51,6 +51,7 @@ const Post = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${logged!.access_token}`,
         },
         body: JSON.stringify(comment),
       });
@@ -127,7 +128,6 @@ const Post = () => {
                             // handle comment creation
                             createComment({
                               content: createCommentInputValue,
-                              userId: logged.id,
                               postId: Number(postId),
                             })
                               .then((commentData) => {

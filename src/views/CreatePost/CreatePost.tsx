@@ -14,7 +14,7 @@ export default function CreatePost() {
   const [communities, setCommunities] = useState([
     {
       id: 1,
-      name: "Loading communities...",
+      name: "Choose a community",
       imageUrl: "",
     },
   ] as Community[]);
@@ -51,7 +51,9 @@ export default function CreatePost() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${logged!.access_token}`,
       },
+
       body: JSON.stringify(post),
     });
 
@@ -69,7 +71,7 @@ export default function CreatePost() {
   }, []);
 
   return (
-    <div className="w-full max-w-sm mx-auto mt-4 p-6 bg-white rounded-md shadow-md">
+    <div className="w-full max-w-sm mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-semibold text-gray-700 text-center">
         Create a Post
       </h2>
@@ -183,7 +185,6 @@ export default function CreatePost() {
               title,
               description: content,
               imageUrl,
-              creatorId: logged.id,
               communityId: selectedCommunity.id,
             })
               .then(async (postData) => {

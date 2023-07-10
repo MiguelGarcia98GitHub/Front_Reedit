@@ -3,6 +3,7 @@ import { Modal, Spinner } from "../../components";
 import { useStore } from "../../store/zustandStore";
 import { useNavigate } from "react-router-dom";
 import { delay } from "../../helpers/helpers";
+import { BackendErrorResponse, DecodedJWT } from "../../interfaces/interfaces";
 
 const LogIn = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,11 +71,15 @@ const LogIn = () => {
                 className="h-12 w-full px-8 py-3 font-semibold text-white rounded-md bg-orange-600 hover:bg-orange-700 cursor-pointer"
                 onClick={() => {
                   setLoading(true);
-                  logIn(email, password)
-                    .then(async (data) => {
+                  logIn(email, password).then(
+                    async (data: DecodedJWT | BackendErrorResponse) => {
+                      console.log("data from Login view");
+                      console.log(data);
+
                       setLoading(false);
 
-                      if ("message" in data) {
+                      if (typeof data === "object" && "message" in data) {
+                        // This is a type guard
                         if (data.message === "Email was not found") {
                           // Activate modal with parameters for 'Email was not found'
                           setModalTitle("Error");
@@ -92,13 +97,14 @@ const LogIn = () => {
                       }
 
                       navigate("/");
-                    })
-                    .catch(async () => {
-                      setLoading(false);
-                      setModalTitle("Error");
-                      setModalContent("Servers are currently down");
-                      setIsModalOpen(true);
-                    });
+                    }
+                  );
+                  // .catch(async () => {
+                  //   setLoading(false);
+                  //   setModalTitle("Error");
+                  //   setModalContent("Servers are currently down");
+                  //   setIsModalOpen(true);
+                  // });
                 }}
               >
                 <div className="flex justify-center items-center">

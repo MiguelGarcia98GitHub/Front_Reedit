@@ -2,6 +2,8 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useStore } from "../../store/zustandStore";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { DecodedJWT, loggedIn } from "../../interfaces/interfaces";
 
 const HeaderMenuLogged = () => {
   const { logged } = useStore();
@@ -16,7 +18,10 @@ const HeaderMenuLogged = () => {
               <UserIcon className="h-7 w-7" aria-hidden="true" />
             </div>
             <div>
-              <span> {logged.username} </span>
+              <span>
+                {logged &&
+                  (jwt_decode(logged.access_token) as DecodedJWT).username}{" "}
+              </span>
             </div>
           </Menu.Button>
         </div>
@@ -29,7 +34,7 @@ const HeaderMenuLogged = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-1 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 mt-1 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
             <div className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (

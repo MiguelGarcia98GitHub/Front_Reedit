@@ -21,15 +21,23 @@ export default function CreateCommunity() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${logged!.access_token}`,
       },
+
       body: JSON.stringify(community),
     });
+
+    console.log("response from createCommunity:");
+    console.log(response);
 
     if (!response.ok) {
       // TODO
     }
 
     const data = await response.json();
+
+    console.log("data from createCommunity:");
+    console.log(data);
 
     return data;
   }
@@ -72,7 +80,6 @@ export default function CreateCommunity() {
             createCommunity({
               name,
               imageUrl,
-              creatorId: logged.id,
             })
               .then(async (communityData) => {
                 setModalTitle("Success");

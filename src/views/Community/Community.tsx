@@ -64,7 +64,7 @@ const Community = () => {
   }, [communityNameData]);
 
   return (
-    <div>
+    <div className="justify-center align-middle">
       {empty404 === 2 && communityNameData && (
         <CommunityTopBar community={communityNameData} />
       )}
