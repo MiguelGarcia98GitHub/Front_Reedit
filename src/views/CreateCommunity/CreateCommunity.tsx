@@ -4,6 +4,7 @@ import { Modal } from "../../components";
 import { delay } from "../../helpers/helpers";
 import { useNavigate } from "react-router-dom";
 import { CommunityDTO } from "../../interfaces/interfaces";
+import { baseBackendURL } from "../../config/globals";
 
 export default function CreateCommunity() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +18,10 @@ export default function CreateCommunity() {
   const navigate = useNavigate();
 
   async function createCommunity(community: CommunityDTO) {
-    const response = await fetch("http://localhost:3000/communities", {
+    console.log("communityDto");
+    console.log(community);
+
+    const response = await fetch(`${baseBackendURL}/communities`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

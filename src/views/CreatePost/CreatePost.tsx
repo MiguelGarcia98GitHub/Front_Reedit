@@ -5,6 +5,7 @@ import { useStore } from "../../store/zustandStore";
 import { Modal } from "../../components";
 import { delay } from "../../helpers/helpers";
 import { useNavigate } from "react-router-dom";
+import { baseBackendURL } from "../../config/globals";
 
 export default function CreatePost() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +26,6 @@ export default function CreatePost() {
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
-  const { logged } = useStore();
   const navigate = useNavigate();
 
   const filteredCommunities =
@@ -39,7 +39,7 @@ export default function CreatePost() {
         );
 
   async function getAllCommunities() {
-    const response = await fetch("http://localhost:3000/communities");
+    const response = await fetch(`${baseBackendURL}/communities`);
 
     const communitiesFetchData = await response.json();
 
@@ -47,11 +47,10 @@ export default function CreatePost() {
   }
 
   async function createPost(post: PostDTO) {
-    const response = await fetch("http://localhost:3000/posts", {
+    const response = await fetch(`${baseBackendURL}/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${logged!.access_token}`,
       },
 
       body: JSON.stringify(post),

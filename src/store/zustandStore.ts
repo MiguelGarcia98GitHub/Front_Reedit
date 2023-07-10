@@ -95,6 +95,9 @@ export const useStore = create<Store>()(
 
         const postsData = await response.json();
 
+        console.log("postsData:");
+        console.log(postsData);
+
         set({
           posts: postsData,
         });

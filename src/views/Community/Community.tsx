@@ -8,6 +8,7 @@ import {
 } from "../../interfaces/interfaces";
 import CommunityPostsList from "../../components/CommunityPostsList/CommunityPostsList";
 import NotFound from "../NotFound/NotFound";
+import { baseBackendURL } from "../../config/globals";
 
 const Community = () => {
   const [empty404, setEmpty404] = useState<number>(1); // 1: Loading / 2: Correctly Loaded / 3: Empty
@@ -22,7 +23,7 @@ const Community = () => {
   async function fetchCommunityData() {
     try {
       const response = await fetch(
-        `http://localhost:3000/communities/communityName/${communityName}`
+        `${baseBackendURL}/communities/communityName/${communityName}`
       );
 
       const communityNameFetchData = await response.json();

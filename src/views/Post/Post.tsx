@@ -47,7 +47,7 @@ const Post = () => {
 
   async function createComment(comment: CommentDTO) {
     try {
-      const response = await fetch("http://localhost:3000/comments", {
+      const response = await fetch(`${baseBackendURL}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
